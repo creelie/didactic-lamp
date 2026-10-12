@@ -1,0 +1,28 @@
+{
+  "title": "Partitioning {1,...,n} into parts of size at most three whose sums are powers of three: paper, Lean 4 formalization and verification code",
+  "description": "<p>Proof of Conjecture 1 of Gurvich and Naumova (arXiv:2508.00946): for every n &ge; 1 the set {1,...,n} has a partition into parts of at most three elements whose sums are powers of 3. The partition is given by an explicit recursion; as a corollary, every {1,...,n} has a partition into parts of at most m elements with sums powers of m if and only if m is 2 or 3.</p><p><code>paper/</code> holds the LaTeX source in the Elsevier elsarticle template and the compiled PDF; <code>dist/</code> holds the PDF, the arXiv tarball and <code>MasterGurvichNaumovaZip.zip</code> with every file of the repository. <code>lean/</code> is a Lean 4 and Mathlib formalization of the theorem (7 files); <code>GN.gurvich_naumova</code> states the existence of a Finpartition of Finset.Icc 1 n with the required parts and depends only on the axioms propext, Classical.choice and Quot.sound. <code>checks/</code> contains independent implementations of the construction in Python, Julia, C and C++, and <code>run_all.sh</code> runs the Lean build, the axiom check and all programs.</p>",
+  "upload_type": "software",
+  "license": "mit",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Bhattacharjee, Deep",
+      "orcid": "0000-0003-0466-750X"
+    }
+  ],
+  "keywords": [
+    "set partition",
+    "powers of three",
+    "zero-sum triples",
+    "involution",
+    "Lean 4"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "arXiv:2508.00946",
+      "relation": "references",
+      "scheme": "arxiv"
+    }
+  ],
+  "language": "eng"
+}
