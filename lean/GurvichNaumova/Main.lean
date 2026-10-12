@@ -1,4 +1,4 @@
-import LeanLab.GN.CaseA2
+import GurvichNaumova.CaseA2
 
 open Finset
 
@@ -38,7 +38,7 @@ theorem main_aux (m : ℕ) : Good (Icc 1 (m : ℤ)) ∧ Hyp m := by
     intro k h0 h1
     have := IH k.toNat (by omega)
     rwa [Int.toNat_of_nonneg h0] at this
-  set n : ℤ := m with hn
+  set n : ℤ := (m : ℤ) with hn
   have hn0 : 0 ≤ n := by omega
   -- small cases
   by_cases hsmall : n ≤ 2
@@ -53,7 +53,7 @@ theorem main_aux (m : ℕ) : Good (Icc 1 (m : ℤ)) ∧ Hyp m := by
     · rw [h]
       have : Icc (1 : ℤ) 2 = {1, 2} := by ext x; simp only [mem_Icc, mem_insert, mem_singleton]; omega
       rw [this]; exact Good.pair 1 2 1 (by norm_num) (by norm_num)
-  push_neg at hsmall
+  push Not at hsmall
   obtain ⟨t, ht1, ht2⟩ := exists_level n (by omega)
   set T : ℤ := 3 ^ t with hT
   have hT3 : (3 : ℤ) ^ (t + 1) = 3 * T := by rw [hT]; ring
@@ -114,7 +114,7 @@ theorem main_aux (m : ℕ) : Good (Icc 1 (m : ℤ)) ∧ Hyp m := by
     simp only [mem_Icc, mem_image] at hx hx'
     obtain ⟨y, hy, rfl⟩ := hx'
     omega
-  push_neg at hj3
+  push Not at hj3
   -- the class `j ≡ 2 (mod 3)`: first the invariant
   have hTri : Good (Icc 1 (T + j) \ {T + j - 1, T + j, T - 2 * j + 1}) := by
     by_cases hj2' : j = 2
@@ -218,5 +218,112 @@ theorem main_aux (m : ℕ) : Good (Icc 1 (m : ℤ)) ∧ Hyp m := by
 /-- **Gurvich–Naumova Conjecture 1.** For every `n`, the set `{1, …, n}` has a partition into
 parts of at most three elements, each with sum a power of three. -/
 theorem good_Icc (n : ℕ) : Good (Icc 1 (n : ℤ)) := (main_aux n).1
+
+/-- Decompose a good set into its admissible parts. -/
+theorem Good.parts {S : Finset ℤ} (h : Good S) :
+    ∃ Q : Finset (Finset ℤ), (∀ s ∈ Q, s.Nonempty ∧ Adm s) ∧
+      (Q : Set (Finset ℤ)).PairwiseDisjoint id ∧ Q.biUnion id = S := by
+  induction h with
+  | empty => exact ⟨∅, by simp, by simp, by simp⟩
+  | part hs =>
+    rename_i s
+    refine ⟨{s}, ?_, by simp, by simp⟩
+    intro u hu
+    rw [mem_singleton] at hu
+    subst hu
+    refine ⟨?_, hs⟩
+    obtain ⟨_, k, hk⟩ := hs
+    by_contra hne
+    rw [not_nonempty_iff_eq_empty] at hne
+    rw [hne, sum_empty] at hk
+    exact absurd hk.symm (pow_ne_zero _ (by norm_num))
+  | @union A B _ _ hd ihA ihB =>
+    obtain ⟨QA, hA1, hA2, hA3⟩ := ihA
+    obtain ⟨QB, hB1, hB2, hB3⟩ := ihB
+    refine ⟨QA ∪ QB, ?_, ?_, ?_⟩
+    · intro s hs
+      rcases mem_union.1 hs with h | h
+      · exact hA1 s h
+      · exact hB1 s h
+    · rw [coe_union]
+      refine hA2.union hB2 ?_
+      intro a ha b hb _
+      have haA : a ⊆ A := by rw [← hA3]; exact subset_biUnion_of_mem id (mem_coe.1 ha)
+      have hbB : b ⊆ B := by rw [← hB3]; exact subset_biUnion_of_mem id (mem_coe.1 hb)
+      exact Disjoint.mono haA hbB hd
+    · rw [union_biUnion, hA3, hB3]
+
+/-- **Gurvich–Naumova Conjecture 1** (arXiv:2508.00946). For every `n`, the set
+`{1, …, n}` has a partition into parts of at most three elements, the sum of each part
+being a power of three. -/
+theorem gurvich_naumova (n : ℕ) :
+    ∃ P : Finpartition (Finset.Icc 1 n),
+      ∀ s ∈ P.parts, s.card ≤ 3 ∧ ∃ k : ℕ, ∑ x ∈ s, x = 3 ^ k := by
+  obtain ⟨Q, hQ1, hQ2, hQ3⟩ := (good_Icc n).parts
+  have hpos : ∀ s ∈ Q, ∀ x ∈ s, 1 ≤ x ∧ x ≤ n := by
+    intro s hs x hx
+    have : x ∈ Q.biUnion id := mem_biUnion.2 ⟨s, hs, hx⟩
+    rw [hQ3, mem_Icc] at this
+    exact this
+  have hinj : ∀ s ∈ Q, Set.InjOn Int.toNat (s : Set ℤ) := by
+    intro s hs x hx y hy hxy
+    have := hpos s hs x hx
+    have := hpos s hs y hy
+    omega
+  refine ⟨{ parts := Q.image (fun s => s.image Int.toNat)
+            supIndep := ?_
+            sup_parts := ?_
+            bot_notMem := ?_ }, ?_⟩
+  · rw [Finset.supIndep_iff_pairwiseDisjoint]
+    intro a ha b hb hab
+    simp only [coe_image, Set.mem_image, mem_coe] at ha hb
+    obtain ⟨s, hs, rfl⟩ := ha
+    obtain ⟨u, hu, rfl⟩ := hb
+    have hsu : s ≠ u := fun h => hab (h ▸ rfl)
+    have hd : Disjoint s u := hQ2 hs hu hsu
+    simp only [Function.onFun, id]
+    rw [disjoint_left]
+    intro y hy hy'
+    simp only [mem_image] at hy hy'
+    obtain ⟨x, hx, rfl⟩ := hy
+    obtain ⟨x', hx', hxx⟩ := hy'
+    have := hpos s hs x hx
+    have := hpos u hu x' hx'
+    have : x' = x := by omega
+    subst this
+    exact disjoint_left.1 hd hx hx'
+  · ext y
+    simp only [mem_sup, mem_image, id, mem_Icc]
+    constructor
+    · rintro ⟨t, ⟨s, hs, rfl⟩, hy⟩
+      simp only [mem_image] at hy
+      obtain ⟨x, hx, rfl⟩ := hy
+      have := hpos s hs x hx
+      omega
+    · intro hy
+      have : (y : ℤ) ∈ Q.biUnion id := by rw [hQ3, mem_Icc]; omega
+      obtain ⟨s, hs, hys⟩ := mem_biUnion.1 this
+      exact ⟨s.image Int.toNat, ⟨s, hs, rfl⟩, mem_image.2 ⟨y, hys, by simp⟩⟩
+  · simp only [mem_image, not_exists, not_and]
+    intro s hs he
+    obtain ⟨x, hx⟩ := (hQ1 s hs).1
+    have : x.toNat ∈ s.image Int.toNat := mem_image_of_mem _ hx
+    rw [he] at this
+    simp at this
+  · intro t ht
+    simp only [mem_image] at ht
+    obtain ⟨s, hs, rfl⟩ := ht
+    obtain ⟨_, hadm⟩ := hQ1 s hs
+    obtain ⟨hcard, k, hk⟩ := hadm
+    refine ⟨(card_image_le).trans hcard, k, ?_⟩
+    rw [sum_image (hinj s hs)]
+    have hcast : ((∑ x ∈ s, x.toNat : ℕ) : ℤ) = ∑ x ∈ s, x := by
+      push_cast
+      refine sum_congr rfl ?_
+      intro x hx
+      have := hpos s hs x hx
+      omega
+    have : ((∑ x ∈ s, x.toNat : ℕ) : ℤ) = ((3 ^ k : ℕ) : ℤ) := by rw [hcast, hk]; push_cast; ring
+    exact_mod_cast this
 
 end GN

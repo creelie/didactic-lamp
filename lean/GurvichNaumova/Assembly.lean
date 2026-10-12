@@ -1,4 +1,4 @@
-import LeanLab.GN.Basic
+import GurvichNaumova.Basic
 
 open Finset
 
@@ -33,8 +33,8 @@ theorem assembly (T : ℤ) (t : ℕ) (hT : T = 3 ^ t) (j : ℤ) (hj : 0 ≤ j) (
     simp only [mem_sdiff, mem_Icc, mem_union, mem_filter, mem_insert, refl, hE]
     by_cases p1 : x ∈ D <;> by_cases p2 : T - x ∈ D <;> by_cases p3 : x ∈ Tri <;>
       simp only [p1, p2, p3, true_implies, false_implies, not_true_eq_false,
-        not_false_eq_true, and_true, true_and, and_false, false_and, or_false, false_or,
-        or_true, true_or, iff_true, true_iff, iff_false, false_iff] at a1 a2 a3 ⊢ <;> omega
+        not_false_eq_true, and_true, and_false, or_false, false_or, or_true, true_or,
+        iff_true, false_iff] at a1 a2 a3 ⊢ <;> omega
   rw [heq]
   refine Good.union hEg (Good.union hF hR ?_) ?_
   · rw [disjoint_left]

@@ -1,5 +1,5 @@
-import LeanLab.GN.Gadget
-import LeanLab.GN.Assembly
+import GurvichNaumova.Gadget
+import GurvichNaumova.Assembly
 
 open Finset
 
