@@ -75,7 +75,8 @@ To build the paper: `cd paper && latexmk -pdf main.tex`.
 
 ## Archive
 
-Releases of this repository are archived on Zenodo.
+Zenodo, all versions: [10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376);
+release v1.0.0: [10.5281/zenodo.23316377](https://doi.org/10.5281/zenodo.23316377).
 
 ## License
 
