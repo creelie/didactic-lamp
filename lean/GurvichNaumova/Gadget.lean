@@ -1,4 +1,4 @@
-import LeanLab.GN.Basic
+import GurvichNaumova.Basic
 
 open Finset
 
