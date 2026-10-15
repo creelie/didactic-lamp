@@ -4,17 +4,14 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[utf8]{inputenc}
-\DeclareUnicodeCharacter{2115}{\ensuremath{\mathbb{N}}}
-\DeclareUnicodeCharacter{2200}{\ensuremath{\forall}}
-\DeclareUnicodeCharacter{2203}{\ensuremath{\exists}}
-\DeclareUnicodeCharacter{2208}{\ensuremath{\in}}
-\DeclareUnicodeCharacter{2211}{\ensuremath{\sum}}
-\DeclareUnicodeCharacter{2227}{\ensuremath{\wedge}}
-\DeclareUnicodeCharacter{2264}{\ensuremath{\le}}
+\usepackage{graphicx}
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
 
 \journal{Discrete Mathematics}
+
+\newcommand{\zenodoID}{10.5281/zenodo.0000000}
+\newcommand{\preprintURL}{https://github.com/creelie/didactic-lamp/blob/main/preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -35,21 +32,32 @@
 
 \title{Partitioning \texorpdfstring{$\{1,\dots,n\}$}{\{1,...,n\}} into parts of size at most three whose sums are powers of three}
 
-\author{Deep Bhattacharjee}
+\author[egspl]{Deep Bhattacharjee\corref{cor1}\fnref{orcid1}}
+\ead{itsdeep@live.com}
 \ead{d.bhattacharjee@erl-forschung.de}
-\affiliation{organization={Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL)},
+\fntext[orcid1]{ORCID: \url{https://orcid.org/0000-0003-0466-750X}}
+\cortext[cor1]{Corresponding author.}
+\affiliation[egspl]{organization={Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL)},
             city={Bhubaneswar},
             postcode={751030},
             state={Odisha},
             country={India}}
 
+\author[ntu]{Ushashi Bhattacharya\fnref{orcid2}}
+\ead{rai.bhattacharya.in@gmail.com}
+\fntext[orcid2]{ORCID: \url{https://orcid.org/0009-0002-2254-3914}}
+\affiliation[ntu]{organization={Formerly, National Taiwan University},
+            city={Taipei},
+            postcode={106319},
+            country={Taiwan}}
+
 \begin{abstract}
-We prove the conjecture of Gurvich and Naumova that for every $n\ge1$ the set $\{1,\dots,n\}$ has a partition into parts of at most three elements whose sums are powers of $3$. The partition is given by an explicit recursion. The proof is formalized in Lean~4.
+We prove the conjecture of Gurvich and Naumova that for every $n\ge1$ the set $\{1,\dots,n\}$ can be partitioned into parts of at most three elements whose sums are powers of $3$. The partition is given by an explicit recursion.
 \end{abstract}
 
 \begin{keyword}
-set partition \sep powers of three \sep zero-sum triples \sep involution \sep Lean
-\MSC[2020] 05A18 \sep 11B75 \sep 68V15
+set partition \sep powers of three \sep zero-sum triples \sep involution \sep formal verification
+\MSC[2020] Primary 05A18 \sep Secondary 11B75 \sep 68V15
 \end{keyword}
 
 \end{frontmatter}
@@ -72,7 +80,13 @@ For every $n\ge1$ the set $[n]$ has a $3$-good partition.
 Let $m\ge2$. Every set $[n]$, $n\ge1$, has an $m$-good partition if and only if $m\in\{2,3\}$.
 \end{corollary}
 
-The proof is a recursion on $n$. Let $T=3^t\le n<3T$. For $n=T$, for $2n>3T$, and for $n=T+j$ with $j\not\equiv2\pmod 3$, the reductions of \cite[Section~2]{GN} pass from $[n]$ to a shorter interval. For the remaining $n=T+j$, $j\equiv2\pmod3$, $2j<T$, we prove more: $[n]$ minus the triple $\{n-1,n,T-2j+1\}$, whose sum is $3T$, has a $3$-good partition (Proposition~\ref{prop:H}). This statement passes from $j$ to $n$ by a reflection argument (Lemma~\ref{lem:assembly}), except when $j$ lies in the upper half of the interval $[3^u,3^{u+1})$ that contains it. In that case a fixed-point-free involution of $\{1,\dots,2N-2\}$ with distinct pair sums supplies the missing triples (Lemma~\ref{lem:sigma}). Section~\ref{sec:lean} describes the Lean~4 formalization and the computations.
+The proof is a recursion on $n$. Let $T=3^t\le n<3T$. For $n=T$, for $2n>3T$, and for $n=T+j$ with $j\not\equiv2\pmod 3$, the reductions of \cite[Section~2]{GN} pass from $[n]$ to a shorter interval. For the remaining $n=T+j$, $j\equiv2\pmod3$, $2j<T$, we prove more: $[n]$ minus the triple $\{n-1,n,T-2j+1\}$, whose sum is $3T$, has a $3$-good partition (Proposition~\ref{prop:H}). This statement passes from $j$ to $n$ by a reflection argument (Lemma~\ref{lem:assembly}), except when $j$ lies in the upper half of the interval $[3^u,3^{u+1})$ that contains it. In that case a fixed-point-free involution of $\{1,\dots,2N-2\}$ with distinct pair sums supplies the missing triples (Lemma~\ref{lem:sigma}). Figure~\ref{fig:cases} shows the four cases, and Section~\ref{sec:lean} describes the formal verification of the proof.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_cases.png}
+\caption{The four cases of the recursion for $T=27$, drawn for $n=27,50,33,35$. In (a)--(c) the gray interval is good by induction. In (d) the three red points form $W_n$, and the rest of $[n]$ is good by $H(n)$, Proposition~\ref{prop:H}.}\label{fig:cases}
+\end{figure}
 
 \section{Good and balanced sets}\label{sec:prelim}
 
@@ -90,7 +104,7 @@ A_i=\{-(3k-i),\,1+i,\,3k-1-2i\},\qquad B_i=\{-(2k-i),\,-(k-i),\,3k-2i\}
 have sum $0$. As $i$ runs over $\iv0{k-1}$, the entries $-(3k-i)$, $-(2k-i)$, $-(k-i)$ run over $\iv{-3k}{-2k-1}$, $\iv{-2k}{-k-1}$, $\iv{-k}{-1}$, the entries $1+i$ run over $\iv1k$, and the entries $3k-1-2i$ and $3k-2i$ run over the numbers in $\iv{k+1}{3k}$ of the parity of $3k-1$ and of $3k$. So the $2k$ sets $A_i,B_i$ partition $\iv{-3k}{3k}\setminus\{0\}$. Add $\{0\}$ if $r=0$ and $\{-\ell,0,\ell\}$ if $r=1$.
 \end{proof}
 
-In the proof in \cite{GN} the two sums over $i$ start at $i=1$; they start at $i=0$, as the examples $k=1,2$ given there show.
+In \cite{GN} the index $i$ runs from $1$; it has to start at $0$, as the examples $k=1,2$ given there show.
 
 \begin{lemma}\label{lem:image}
 Let $Z$ be balanced, $q\ge0$ and $s\ne0$. Then $3^q+sZ$ is good and $sZ$ is balanced.
@@ -122,6 +136,12 @@ If $F$ and $R$ are good, then $\iv1{T+j}\setminus W$ is good.
 Let $E=\{x\in\iv1{T-1}: x\notin D,\ T-x\notin D\}$. Then $T-E=E$, so $E$ is good by Lemma~\ref{lem:pairs}. We show that $\iv1{T+j}\setminus W$ is the disjoint union of $E$, $F$ and $R$. The set $E$ meets neither $D\supseteq F$ nor $\{T\}\cup\iv{T+1}{T+j}\cup(T-D)\supseteq R$; and $F\subseteq\iv1{T-1}$ does not meet $T-D$, hence meets neither $R$ nor $W$. Since $E$ does not meet $W$ either, $E$, $F$, $R$ are disjoint subsets of $\iv1{T+j}\setminus W$. Conversely let $x\in\iv1{T+j}\setminus W$. If $x\ge T$, or if $x\le T-1$ and $T-x\in D$, then $x\in R$. Otherwise $x\le T-1$, $T-x\notin D$, and $x\in F$ or $x\in E$ according as $x\in D$ or not.
 \end{proof}
 
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_assembly.png}
+\caption{Lemma~\ref{lem:assembly}. The reflection $x\mapsto T-x$ maps $D$ onto $T-D$; the rest $E$ of $\iv1{T-1}$ is symmetric and splits into pairs with sum $T$.}\label{fig:assembly}
+\end{figure}
+
 \begin{lemma}\label{lem:sigma}
 Let $N\ge1$, $N\equiv1\pmod3$, and $K=2N-2$. There is a fixed-point-free involution $\sigma$ of $\iv1K$ with the following properties, where $\Pi=\{z\in\iv1K:z<\sigma(z)\}$.
 \begin{enumerate}
@@ -136,7 +156,7 @@ Since $N\equiv1\pmod3$, either $N=1$, or $N=2M$ with $M\ge2$ and $M\equiv2\pmod3
 
 If $N=1$, then $\iv1K=\emptyset$ and $\Delta_1=\{0\}$.
 
-Let $N=2M$. Let $\sigma$ exchange $1\leftrightarrow N$, $2\leftrightarrow N+1$, and $x\leftrightarrow x+N-1$ for $3\le x\le N-1$. These pairs partition $\iv1K$: the last family pairs $\iv3{N-1}$ with $\iv{N+2}{2N-2}$. The pair sums are $N+1$, $N+3$ and $2x+N-1$, $3\le x\le N-1$, which are distinct. Subtracting $2N+1=4M+1$ gives
+Let $N=2M$. Let $\sigma$ exchange $z\leftrightarrow z+N-1$ for $1\le z\le N-1$. These pairs partition $\iv1K$, since $K=2(N-1)$. The pair sums are $2z+N-1$, $1\le z\le N-1$, which are distinct. Subtracting $2N+1=4M+1$ gives the numbers $2(z-M-1)$, $1\le z\le 2M-1$, so $\Delta_N=\{4M-2\}\cup2\,\iv{-M}{M-2}$, that is,
 \[
 \Delta_N=\{4M-2,\,-2M,\,-(2M-2)\}\cup 2\,\iv{-(M-2)}{M-2}.
 \]
@@ -149,6 +169,12 @@ Let $N=2M+1$. Let $\sigma$ exchange $1\leftrightarrow N$, $2\leftrightarrow N+1$
 \end{multline*}
 The first two sets have sum $0$; the third lies in $\iv{-(2M-6)}{2M-6}$ and is balanced since $M-3\equiv0\pmod3$. The three sets are disjoint, which proves (i)--(iii), as $4M=2N-2$.
 \end{proof}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/fig_sigma.png}
+\caption{Lemma~\ref{lem:sigma} for $N=10$, $M=5$. Each pair $\{z,\sigma(z)\}$ carries the number $z+\sigma(z)-(2N+1)$; together with $2N-2=18$ these form $\Delta_{10}$, which splits into three triples with sum $0$ and $\{0\}$.}\label{fig:sigma}
+\end{figure}
 
 \section{Proof of \texorpdfstring{Theorem~\ref{thm:main}}{the theorem}}\label{sec:proof}
 
@@ -230,34 +256,36 @@ The least $n$ not excluded by \cite[Theorem~1]{GN} is $n=35=27+8$. Here $3j=24<2
 \[
 \{5,7,15\},\ \{9\},\ \{27\},\ \{18,30,33\},\ \{20,29,32\},\ \{22,28,31\},\ \{12,34,35\}
 \]
-and the nine pairs $\{x,27-x\}$, $x\in\{1,2,3,4,6,8,10,11,13\}$.
+and the nine pairs $\{x,27-x\}$, $x\in\{1,2,3,4,6,8,10,11,13\}$; see Figure~\ref{fig:example}.
 \end{example}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_example.png}
+\caption{The $3$-good partition of $[35]$ given by the recursion. Each triple is drawn as two arcs above the line, each pair as one arc below it.}\label{fig:example}
+\end{figure}
 
 The recursion computes the partition of $[n]$ in $O(n)$ arithmetic operations.
 
-\section{Formal verification and computations}\label{sec:lean}
+\section{Formal verification}\label{sec:lean}
 
-Theorem~\ref{thm:main} is formalized in Lean~4 \cite{MU21} with Mathlib \cite{Mathlib20} (Lean and Mathlib version~4.34.1). The source, seven files with $1073$ lines, is in the directory \texttt{lean} of the archive described under Data availability. Sets are finite sets of integers; good and balanced sets are inductive predicates generated from the empty set and the admissible sets, respectively the sets $\{0\}$ and $3$-element sets with sum $0$, by disjoint union. The file \texttt{Basic.lean} contains Lemmas~\ref{lem:interval}--\ref{lem:pairs}, \texttt{Gadget.lean} Lemma~\ref{lem:sigma}, \texttt{Assembly.lean} Lemma~\ref{lem:assembly} with the first two cases of Proposition~\ref{prop:H}, \texttt{CaseA2.lean} its last case, and \texttt{Main.lean} the induction of Section~\ref{sec:proof} and the main theorem:
-{\small
-\begin{verbatim}
-theorem gurvich_naumova (n : ℕ) :
-    ∃ P : Finpartition (Finset.Icc 1 n),
-      ∀ s ∈ P.parts, s.card ≤ 3 ∧ ∃ k : ℕ, ∑ x ∈ s, x = 3 ^ k
-\end{verbatim}}
-Here \texttt{Finpartition (Finset.Icc 1 n)} is the type of partitions of $[n]$ into nonempty parts. The command \texttt{lake build} compiles the project and runs
-{\small
-\begin{verbatim}
-#print axioms GN.gurvich_naumova
-\end{verbatim}}
-\noindent which reports \texttt{propext}, \texttt{Classical.choice} and \texttt{Quot.sound}, the axioms of Lean's logic. The source contains no \texttt{sorry} and declares no axiom.
+Theorem~\ref{thm:main} is formalized in Lean~4 \cite{MU21} with Mathlib \cite{Mathlib20}, version~4.34.1, and the formal proof is checked by the Lean kernel. The formal statement says that for every natural number $n$ there is a partition of $\{1,\dots,n\}$ into nonempty parts, each of which has at most three elements and a power of $3$ as its sum. In the formal proof, good and balanced sets are the finite sets of integers built by disjoint union from the admissible sets, respectively from $\{0\}$ and the $3$-element sets with sum $0$, and the argument is that of Sections~\ref{sec:prelim}--\ref{sec:proof}. The proof depends only on the axioms of Lean's logic, namely propositional extensionality, choice and the soundness of quotients; it has no unproved step and adds no axiom.
 
-Programs in Python, C, C++ and Julia, included in the archive, implement the construction of Section~\ref{sec:proof}. They check that it gives a $3$-good partition of $[n]$ for every $n\le30000$ (C; $20000$ in Julia, $10000$ in C++, $3000$ in Python) and for larger values of $n$ up to $6.5\cdot10^7$, check $H(n)$ for every $n$ in these ranges for which it is defined, and check Lemma~\ref{lem:interval} for $\ell\le3000$ and Lemma~\ref{lem:sigma} for $N\le3001$ (Python; $\ell\le30000$ and $N\le30001$ in C++). A shell script runs the Lean build, the axiom check and all programs. The construction, the proofs, the formalization and the programs were developed with Claude Code (Anthropic); see the declaration below.
+Independent computations in exact integer arithmetic run the recursion of Section~\ref{sec:proof} and confirm that it gives a $3$-good partition of $[n]$ for every $n\le30000$ and for further values of $n$ up to $6.5\cdot10^7$, and that $H(n)$ holds for every $n$ in these ranges for which it is defined. They also confirm Lemma~\ref{lem:interval} for $\ell\le30000$ and Lemma~\ref{lem:sigma} for $N\le30001$.
 
 \section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work the author used Claude Code (Anthropic) in order to develop the construction and the proof, write the Lean formalization and the verification programs, and draft the manuscript. After using this tool, the author reviewed and edited the content as needed and takes full responsibility for the content of the published article.
+During the preparation of this work the authors used Claude (Anthropic) in order to assist with the proofs, the Lean formalization, the computations and the preparation of the manuscript. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
 
 \section*{Data availability}
-The repository \mbox{\url{https://github.com/creelie/didactic-lamp}} contains the Lean~4 formalization, the verification programs and the shell script that runs them. It is archived on Zenodo under \href{https://doi.org/10.5281/zenodo.23316376}{doi:10.5281/zenodo.23316376} (all versions; release v1.0.0 is \href{https://doi.org/10.5281/zenodo.23316377}{doi:10.5281/zenodo.23316377}).
+\begingroup\raggedright
+Deep Bhattacharjee computed the Lean formalization and the Julia, C, C++, shell and Python computations with the help of AI assistance (Claude, Anthropic). The Lean formalization of the proofs in this paper is archived at Zenodo, doi:\href{https://doi.org/\zenodoID}{\zenodoID}. The paper is available at \url{\preprintURL}.\par
+\endgroup
+
+\section*{Competing interests}
+None.
+
+\section*{Funding}
+None.
 
 \bibliographystyle{elsarticle-num}
 \bibliography{refs}

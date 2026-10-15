@@ -6,3 +6,6 @@ paper/*.fdb_latexmk
 paper/*.out
 paper/*.blg
 paper/*.spl
+figures/*.pdf
+figures/*.aux
+figures/*.log

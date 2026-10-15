@@ -16,22 +16,24 @@ many areas of discrete mathematics and combinatorics", publishing research
 articles as Contributions or Notes depending on length. The paper solves a
 problem on partitions of the integer interval {1, ..., n} posed by Gurvich and
 Naumova (arXiv:2508.00946, math.CO) by an explicit combinatorial construction;
-at 9 pages it fits the journal as a short Contribution or a Note.
+at 10 pages it fits the journal as a short Contribution.
 
 ## Length and format
 
-- The manuscript is 9 pages in the `elsarticle` preprint layout (12 pt, single
-  column).
+- The manuscript is 10 pages in the `elsarticle` preprint layout (12 pt, single
+  column), with four figures.
 - Elsevier accepts a first submission as a single PDF; after acceptance the
-  LaTeX source, the class file and the `.bib` or `.bbl` file are uploaded. The
-  arXiv tarball in `dist/` contains exactly these files.
-- Required front matter, all present: title, author with address and email,
-  abstract, keywords, MSC 2020 codes (05A18, 11B75, 68V15).
+  LaTeX source, the class file, the `.bib` or `.bbl` file and the figures are
+  uploaded. The tex zip and the arXiv tarball in `dist/` contain exactly these
+  files.
+- Required front matter, all present: title, two authors with addresses,
+  emails and ORCIDs (Deep Bhattacharjee is the corresponding author), abstract,
+  keywords, MSC 2020 codes (Primary 05A18; Secondary 11B75, 68V15).
 - The journal's guide for authors page returned HTTP 403 to the session that
   prepared this file, so any journal-specific page limit or abstract length
   limit was not read; check the guide before submitting.
-- Editorial Manager asks at submission for a declaration of competing
-  interests and for funding information; these are filled in by the author on
+- The paper ends with Data availability, Competing interests (none) and
+  Funding (none) sections; Editorial Manager asks for the same declarations on
   the submission form.
 
 ## Policy on AI assistance (Elsevier generative AI policy for journals)
@@ -42,8 +44,8 @@ at 9 pages it fits the journal as a short Contribution or a Note.
   manuscript preparation process", placed before the references; the statement
   appears in the published article. Elsevier's recommended wording is used in
   `paper/main.tex`.
-- Use of AI tools in the research process is described in the methods part of
-  the paper; Section 5 (Formal verification and computations) states it.
+- Use of AI tools in the research process is stated in the declaration and in
+  the Data availability section of the paper.
 - The authors remain responsible for checking all AI-generated output,
   including references. The references in `paper/refs.bib` were checked against
   the arXiv record of arXiv:2508.00946 and the DOI records of the other two.
