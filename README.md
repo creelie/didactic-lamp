@@ -1,6 +1,16 @@
 # Partitioning {1, ..., n} into parts of size at most three whose sums are powers of three
 
-Author: Deep Bhattacharjee (ORCID 0000-0003-0466-750X).
+Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
+Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
+itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X)
+and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
+Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
+
+- Paper: [`preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf`](preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf)
+- Lean 4 formalization on Zenodo: release v2.0.0 (DOI recorded here once minted; all versions: doi:[10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376))
+- Master zip: [`MasterGurvichNaumovaConjecture_masterzipfinal2.zip`](https://github.com/creelie/didactic-lamp/raw/main/MasterGurvichNaumovaConjecture_masterzipfinal2.zip)
+- Target journal: Discrete Mathematics (`journal/JOURNAL.md`)
+- MSC 2020: Primary 05A18; Secondary 11B75, 68V15
 
 This repository proves Conjecture 1 of Gurvich and Naumova
 ([arXiv:2508.00946](https://arxiv.org/abs/2508.00946)):
@@ -8,7 +18,9 @@ This repository proves Conjecture 1 of Gurvich and Naumova
 > For every n >= 1 the set [n] = {1, ..., n} has a partition into parts of at
 > most three elements, the sum of each part being a power of 3.
 
-Before this proof the conjecture was known for n <= 844.
+Before this proof the conjecture was known for n <= 844. Version 3 of the
+preprint (July 2026) still lists it as a conjecture; this was checked again on
+15 October 2026 against arXiv and the web, and no other proof was found.
 
 ## Result
 
@@ -38,13 +50,17 @@ and the pairs {x, 27 - x} for x in {1, 2, 3, 4, 6, 8, 10, 11, 13}.
 
 | Path | Contents |
 |---|---|
-| `paper/` | LaTeX source (`main.tex`, `refs.bib`, Elsevier `elsarticle` class and style) and the compiled `main.pdf` |
+| `paper/` | LaTeX source (`main.tex`, `refs.bib`, Elsevier `elsarticle` class and style, `figures/` as PNG) |
+| `figures/` | TikZ sources of the four figures and `make_figures.sh`, which writes them to `paper/figures/` |
 | `lean/` | Lean 4 + Mathlib formalization (7 files, 1073 lines); `GurvichNaumova/Main.lean` holds `GN.gurvich_naumova` |
 | `checks/python/` | Python check of the construction, of H(n), of Lemma 2.1 and of Lemma 3.2 |
 | `checks/julia/`, `checks/c/`, `checks/cpp/` | the same construction in Julia, C and C++, each checked on its own range of n |
 | `run_all.sh` | runs the Lean build, the axiom check and all programs |
+| `scripts/build_paper.sh` | builds `dist/`, the preprint folder and the master zip |
 | `journal/JOURNAL.md` | target journal, format rules and AI policy |
-| `dist/` | the paper PDF, the arXiv tarball and `MasterGurvichNaumovaZip.zip`, which holds every file of the repository |
+| `dist/` | `GurvichNaumovaConjecture_final2.pdf`, `GurvichNaumovaConjecture_final2-tex.zip` (source with PNG figures) and `GurvichNaumovaConjecture_final2-arxiv.tar.gz` |
+| `preprintGurvichNaumovaConjecture/` | the paper as a PDF, and nothing else |
+| `MasterGurvichNaumovaConjecture_masterzipfinal2.zip` | every tracked file of the repository with `dist/` |
 
 ## Lean statement
 
@@ -71,13 +87,14 @@ The programs check every n <= 30000 (C), 20000 (Julia), 10000 (C++) and 3000
 (Python), and larger n up to 64570081. Each takes an optional bound, for
 example `python3 checks/python/check.py 5000`.
 
-To build the paper: `cd paper && latexmk -pdf main.tex`.
+To build the paper and the release files: `scripts/build_paper.sh` (needs
+latexmk, zip and tar; `figures/make_figures.sh` redraws the figures).
 
 ## Archive
 
-Zenodo, all versions: [10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376);
-release v1.0.0: [10.5281/zenodo.23316377](https://doi.org/10.5281/zenodo.23316377).
-
-## License
-
-MIT, see `LICENSE`.
+| Release | Zenodo DOI |
+|---|---|
+| v2.0.0 (two authors, journal format) | recorded here once minted |
+| v1.0.1 | [10.5281/zenodo.23316427](https://doi.org/10.5281/zenodo.23316427) |
+| v1.0.0 | [10.5281/zenodo.23316377](https://doi.org/10.5281/zenodo.23316377) |
+| all versions | [10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376) |

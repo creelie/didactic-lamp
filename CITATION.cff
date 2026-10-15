@@ -1,10 +1,18 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "Partitioning {1,...,n} into parts of size at most three whose sums are powers of three: paper, Lean 4 formalization and verification code"
+abstract: "We prove the conjecture of Gurvich and Naumova that for every n >= 1 the set {1,...,n} can be partitioned into parts of at most three elements whose sums are powers of 3."
 authors:
   - family-names: Bhattacharjee
     given-names: Deep
+    affiliation: "Formerly, Electro-Gravitational Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India"
+    email: itsdeep@live.com
     orcid: "https://orcid.org/0000-0003-0466-750X"
+  - family-names: Bhattacharya
+    given-names: Ushashi
+    affiliation: "Formerly, National Taiwan University, Taipei 106319, Taiwan"
+    email: rai.bhattacharya.in@gmail.com
+    orcid: "https://orcid.org/0009-0002-2254-3914"
 type: software
 license: MIT
 identifiers:
@@ -12,13 +20,17 @@ identifiers:
     value: 10.5281/zenodo.23316376
     description: All versions on Zenodo
   - type: doi
+    value: 10.5281/zenodo.23316427
+    description: Release v1.0.1
+  - type: doi
     value: 10.5281/zenodo.23316377
     description: Release v1.0.0
 repository-code: "https://github.com/creelie/didactic-lamp"
-version: 1.0.1
+version: 2.0.0
 doi: 10.5281/zenodo.23316376
-date-released: 2026-10-12
+date-released: 2026-10-15
 keywords:
   - set partition
   - powers of three
+  - zero-sum triples
   - Lean 4
