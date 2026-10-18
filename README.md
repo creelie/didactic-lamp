@@ -1,8 +1,9 @@
 # Partitioning {1, ..., n} into parts of size at most three whose sums are powers of three
 
 Deep Bhattacharjee (corresponding author; Formerly, Electro-Gravitational
-Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India;
-itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X)
+Space Propulsion Laboratory (EGSPL), Bhubaneswar, Odisha 751030, India, and
+Formerly, University of Calcutta, Senate House, 87/1 College Street, Kolkata
+700073, West Bengal, India; itsdeep@live.com, d.bhattacharjee@erl-forschung.de; ORCID 0000-0003-0466-750X)
 and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
@@ -50,7 +51,7 @@ and the pairs {x, 27 - x} for x in {1, 2, 3, 4, 6, 8, 10, 11, 13}.
 
 | Path | Contents |
 |---|---|
-| `paper/` | LaTeX source (`main.tex`, `refs.bib`, Elsevier `elsarticle` class and style, `figures/` as PNG) |
+| `paper/` | LaTeX source (`main.tex` with an inline bibliography, the Elsevier `elsarticle` class, `figures/` as PNG) |
 | `figures/` | TikZ sources of the four figures and `make_figures.sh`, which writes them to `paper/figures/` |
 | `lean/` | Lean 4 + Mathlib formalization (7 files, 1073 lines); `GurvichNaumova/Main.lean` holds `GN.gurvich_naumova` |
 | `checks/python/` | Python check of the construction, of H(n), of Lemma 2.1 and of Lemma 3.2 |
