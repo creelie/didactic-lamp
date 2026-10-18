@@ -25,7 +25,7 @@ MASTER=Master${NAME}_masterzipfinal2.zip
 
 echo "== paper"
 ( cd paper && rm -f main.aux main.fdb_latexmk main.fls main.out main.spl && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex > /dev/null )
-if grep -E "Overfull|Underfull|undefined|Rerun to get|Missing character" paper/main.log; then
+if grep -E "Overfull|Underfull|undefined|Rerun to get|Missing character|Token not allowed" paper/main.log; then
   echo "build_paper.sh: fix the warnings above" >&2
   exit 1
 fi
