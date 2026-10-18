@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[utf8]{inputenc}
+\usepackage{lmodern}
 \usepackage{graphicx}
 \usepackage{xurl}
 \usepackage[hidelinks]{hyperref}
@@ -32,7 +33,7 @@
 
 \title{Partitioning \texorpdfstring{$\{1,\dots,n\}$}{\{1,...,n\}} into parts of size at most three whose sums are powers of three}
 
-\author[egspl]{Deep Bhattacharjee\corref{cor1}\fnref{orcid1}}
+\author[egspl,ucal]{Deep Bhattacharjee\corref{cor1}\fnref{orcid1}}
 \ead{itsdeep@live.com}
 \ead{d.bhattacharjee@erl-forschung.de}
 \fntext[orcid1]{ORCID: \url{https://orcid.org/0000-0003-0466-750X}}
@@ -41,6 +42,12 @@
             city={Bhubaneswar},
             postcode={751030},
             state={Odisha},
+            country={India}}
+\affiliation[ucal]{organization={Formerly, University of Calcutta},
+            addressline={Senate House, 87/1 College Street},
+            city={Kolkata},
+            postcode={700073},
+            state={West Bengal},
             country={India}}
 
 \author[ntu]{Ushashi Bhattacharya\fnref{orcid2}}
@@ -52,11 +59,11 @@
             country={Taiwan}}
 
 \begin{abstract}
-We prove the conjecture of Gurvich and Naumova that for every $n\ge1$ the set $\{1,\dots,n\}$ can be partitioned into parts of at most three elements whose sums are powers of $3$. The partition is given by an explicit recursion.
+We prove unconditionally the conjecture of Gurvich and Naumova that for every $n\ge1$ the set $\{1,\dots,n\}$ can be partitioned into parts of at most three elements whose sums are powers of $3$. The partition is given by an explicit recursion.
 \end{abstract}
 
 \begin{keyword}
-set partition \sep powers of three \sep zero-sum triples \sep involution \sep formal verification
+set partition \sep powers of three \sep zero-sum triples \sep formal verification
 \MSC[2020] Primary 05A18 \sep Secondary 11B75 \sep 68V15
 \end{keyword}
 
@@ -64,7 +71,7 @@ set partition \sep powers of three \sep zero-sum triples \sep involution \sep fo
 
 \section{Introduction}\label{sec:intro}
 
-Let $m\ge2$ and $n\ge1$ be integers and $[n]=\{1,\dots,n\}$. Gurvich and Naumova \cite{GN} call a partition of $[n]$ \emph{$m$-good} if every part has at most $m$ elements and the sum of the elements of every part is a power $m^k$, $k\ge0$, of $m$. Every $[n]$ has exactly one $2$-good partition \cite[Proposition~1]{GN}. In an $m$-good partition every part other than $\{1\}$ has sum $\equiv0\pmod m$, so $n(n+1)/2\equiv0$ or $1\pmod m$. For $n=2(m^t+1)$ this sum is $\equiv3\pmod m$; hence for $m\ge4$ the set $[n]$ has no $m$-good partition \cite[Observation~1]{GN}. For $m=3$ they stated:
+Let $m\ge2$ and $n\ge1$ be integers and $[n]=\{1,\dots,n\}$. Gurvich and Naumova \cite{GN} call a partition of $[n]$ \emph{$m$-good} if every part has at most $m$ elements and the sum of the elements of every part is a power $m^k$, $k\ge0$, of $m$. Every $[n]$ has exactly one $2$-good partition \cite[Proposition~1]{GN}. In an $m$-good partition every part other than $\{1\}$ has sum $\equiv0\pmod m$, so $n(n+1)/2\equiv0$ or $1\pmod m$. For $n=2(m^t+1)$ this sum is $\equiv3\pmod m$; hence for $m\ge4$ the set $[n]$ has no $m$-good partition \cite[Observation~1]{GN}.\footnote{Partitions of an interval into small parts tied by an additive condition go back to Skolem \cite{Sko57}, who proved that $\{1,\dots,2n\}$ is a disjoint union of pairs $\{a_i,b_i\}$ with $b_i-a_i=i$, $1\le i\le n$, if and only if $n\equiv0$ or $1\pmod4$. Such pairs give a partition of $\{1,\dots,3n\}$ into the $n$ triples $\{i,\,n+a_i,\,n+b_i\}$, each of the form $\{x,y,x+y\}$: the first entries run over $\{1,\dots,n\}$, the other two over $\{n+1,\dots,3n\}$, and $i+(n+a_i)=n+b_i$. In the problem of Gurvich and Naumova the condition is on the sum of a part rather than on a difference.} For $m=3$ they stated:
 
 \begin{conjecture}[{\cite[Conjecture~1]{GN}}]\label{conj:gn}
 For every $n\ge1$ the set $[n]$ has a $3$-good partition.
@@ -90,7 +97,7 @@ The proof is a recursion on $n$. Let $T=3^t\le n<3T$. For $n=T$, for $2n>3T$, an
 
 \section{Good and balanced sets}\label{sec:prelim}
 
-For integers $a\le b$ let $\iv ab=\{x\in\Z: a\le x\le b\}$, and $\iv ab=\emptyset$ if $a>b$. For $Z\subset\Z$ and $c,s\in\Z$ write $c+sZ=\{c+sz:z\in Z\}$ and $c-Z=\{c-z:z\in Z\}$. A finite set $A\subset\Z$ is \emph{admissible} if $|A|\le3$ and $\sum_{x\in A}x=3^k$ for some $k\ge0$. A finite set $S\subset\Z$ is \emph{good} if it is a disjoint union of admissible sets; thus $[n]$ is good if and only if it has a $3$-good partition. A finite set $Z\subset\Z$ is \emph{balanced} if it is a disjoint union of sets each of which is $\{0\}$ or a $3$-element set with sum $0$. Disjoint unions of good sets are good, and disjoint unions of balanced sets are balanced.
+For integers $a\le b$ let $\iv ab=\{x\in\Z: a\le x\le b\}$, and $\iv ab=\emptyset$ if $a>b$. For $Z\subset\Z$ and $c,s\in\Z$ write $c+sZ=\{c+sz:z\in Z\}$ and $c-Z=\{c-z:z\in Z\}$. A finite set $A\subset\Z$ is \emph{admissible} if $|A|\le3$ and $\sum_{x\in A}x=3^k$ for some $k\ge0$. A finite set $S\subset\Z$ is \emph{good} if it is a disjoint union of admissible sets;\footnote{A partition of $S$ is a cover of $S$ in which every point lies in exactly one set. Covers in which every point lies in at least $k$ of the sets, and the nerve complexes that record how the sets of a cover meet, are studied in~\cite{BB26}.} thus $[n]$ is good if and only if it has a $3$-good partition. A finite set $Z\subset\Z$ is \emph{balanced} if it is a disjoint union of sets each of which is $\{0\}$ or a $3$-element set with sum $0$. Disjoint unions of good sets are good, and disjoint unions of balanced sets are balanced.
 
 \begin{lemma}[{\cite[Lemma~1]{GN}}]\label{lem:interval}
 If $\ell\ge0$ and $\ell\not\equiv2\pmod3$, then $\iv{-\ell}{\ell}$ is balanced.
@@ -124,6 +131,8 @@ Since $Q$ is odd, $x\ne Q-x$, and $X$ is the disjoint union of the pairs $\{x,Q-
 
 \section{Reflection and the involutions \texorpdfstring{$\sigma_N$}{sigma\_N}}\label{sec:tools}
 
+The next lemma uses the reflection $x\mapsto T-x$ of $\iv1{T-1}$, an action of the group of order two that pairs off the points of a symmetric set.\footnote{For an action of a group $G$ on a set, the orbits of $G$ partition the set; here $G$ has order two and the orbits are the pairs $\{x,T-x\}$, all of size two because $T$ is odd. Equivariant classes for actions of hyperbolic groups are constructed in~\cite{Bha22}.}
+
 \begin{lemma}\label{lem:assembly}
 Let $T=3^t$, $j\ge0$, $D\subseteq\iv1{T-1}$ and $W\subseteq\iv{T+1}{T+j}\cup(T-D)$. Put
 \[
@@ -143,7 +152,7 @@ Let $E=\{x\in\iv1{T-1}: x\notin D,\ T-x\notin D\}$. Then $T-E=E$, so $E$ is good
 \end{figure}
 
 \begin{lemma}\label{lem:sigma}
-Let $N\ge1$, $N\equiv1\pmod3$, and $K=2N-2$. There is a fixed-point-free involution $\sigma$ of $\iv1K$ with the following properties, where $\Pi=\{z\in\iv1K:z<\sigma(z)\}$.
+Let $N\ge1$, $N\equiv1\pmod3$, and $K=2N-2$. There is a fixed-point-free involution\footnote{A fixed-point-free involution is a free action of the group of order two, and its orbits are pairs. On complex surfaces the same notion gives the Enriques surfaces, which are the quotients of K3 surfaces by fixed-point-free involutions; K3 surfaces with involutions and the Enriques and Kummer surfaces obtained from them are studied in~\cite{BN26}.} $\sigma$ of $\iv1K$ with the following properties, where $\Pi=\{z\in\iv1K:z<\sigma(z)\}$.
 \begin{enumerate}
 \item[(i)] The sums $z+\sigma(z)$, $z\in\Pi$, are distinct.
 \item[(ii)] The $N$ numbers $2N-2$ and $z+\sigma(z)-(2N+1)$, $z\in\Pi$, are distinct, and the set $\Delta_N$ they form is balanced.
@@ -273,21 +282,66 @@ Theorem~\ref{thm:main} is formalized in Lean~4 \cite{MU21} with Mathlib \cite{Ma
 
 Independent computations in exact integer arithmetic run the recursion of Section~\ref{sec:proof} and confirm that it gives a $3$-good partition of $[n]$ for every $n\le30000$ and for further values of $n$ up to $6.5\cdot10^7$, and that $H(n)$ holds for every $n$ in these ranges for which it is defined. They also confirm Lemma~\ref{lem:interval} for $\ell\le30000$ and Lemma~\ref{lem:sigma} for $N\le30001$.
 
-\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
-During the preparation of this work the authors used Claude (Anthropic) in order to assist with the proofs, the Lean formalization, the computations and the preparation of the manuscript. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the published article.
-
-\section*{Data availability}
+\section*{Data and code availability}
 \begingroup\raggedright
-Deep Bhattacharjee computed the Lean formalization and the Julia, C, C++, shell and Python computations with the help of AI assistance (Claude, Anthropic). The Lean formalization of the proofs in this paper is archived at Zenodo, doi:\href{https://doi.org/\zenodoID}{\zenodoID}. The paper is available at \url{\preprintURL}.\par
+The \LaTeX{} source of the paper, the Lean~4 formalization of Theorem~\ref{thm:main} and the programs of Section~\ref{sec:lean} are archived at Zenodo under doi:\href{https://doi.org/\zenodoID}{\zenodoID} \cite{archive}; the paper is available at \url{\preprintURL}. Deep Bhattacharjee carried out the computations and the Lean, Julia, C, C\texttt{++}, Python and shell verifications, and the proofs and the text were drafted, with AI assistance (Claude, Anthropic); both authors approved the final version.\par
 \endgroup
 
-\section*{Competing interests}
-None.
+\section*{Ethical declarations}
+Funding: none. Competing interests: none.
 
-\section*{Funding}
-None.
+\begin{thebibliography}{9}
+\raggedright
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
 
-\bibliographystyle{elsarticle-num}
-\bibliography{refs}
+\bibitem{GN}
+V.~Gurvich, M.~Naumova, Partitioning set $[n]=\{1,\dots,n\}$ into subsets of size at most $m$ such that all sums are powers of $m$, arXiv:2508.00946 [math.CO] (2025).
+\newblock \href {https://doi.org/10.48550/arXiv.2508.00946}
+  {\path{doi:10.48550/arXiv.2508.00946}}.
+
+\bibitem{Sko57}
+Th.~Skolem, On certain distributions of integers in pairs with given differences, Math. Scand. 5 (1957) 57--68.
+\newblock \href {https://doi.org/10.7146/math.scand.a-10490}
+  {\path{doi:10.7146/math.scand.a-10490}}.
+
+\bibitem{MU21}
+L.~de~Moura, S.~Ullrich, The {L}ean 4 theorem prover and programming language,
+  in: Automated Deduction -- CADE 28, Vol. 12699 of Lecture Notes in Comput.
+  Sci., Springer, Cham, 2021, pp. 625--635.
+\newblock \href {https://doi.org/10.1007/978-3-030-79876-5_37}
+  {\path{doi:10.1007/978-3-030-79876-5_37}}.
+
+\bibitem{Mathlib20}
+{The mathlib Community}, The {L}ean mathematical library, in: Proceedings of
+  the 9th ACM SIGPLAN International Conference on Certified Programs and
+  Proofs, ACM, New York, 2020, pp. 367--381.
+\newblock \href {https://doi.org/10.1145/3372885.3373824}
+  {\path{doi:10.1145/3372885.3373824}}.
+
+\bibitem{BB26}
+D.~Bhattacharjee, U.~Bhattacharya, Iterated nerve complexes for $k$-fold sensor coverage, Preprints.org (2026).
+\newblock \href {https://doi.org/10.20944/preprints202606.1351.v2}
+  {\path{doi:10.20944/preprints202606.1351.v2}}.
+
+\bibitem{Bha22}
+D.~Bhattacharjee, Establishing equivariant class $[O]$ for hyperbolic groups, Asian Res. J. Math. 18~(11) (2022) 362--369.
+\newblock \href {https://doi.org/10.9734/arjom/2022/v18i11615}
+  {\path{doi:10.9734/arjom/2022/v18i11615}}.
+
+\bibitem{BN26}
+D.~Bhattacharjee, P.~Nandi, Enriques and {K}ummer surfaces arising from {K3} involutions, Preprints.org (2026).
+\newblock \href {https://doi.org/10.20944/preprints202602.0098.v1}
+  {\path{doi:10.20944/preprints202602.0098.v1}}.
+
+\bibitem{archive}
+D.~Bhattacharjee, U.~Bhattacharya, Partitioning $\{1,\dots,n\}$ into parts of size at most three whose sums are powers of three: paper, Lean 4 formalization and verification code, Zenodo (2026).
+\newblock \href {https://doi.org/10.5281/zenodo.23384809}
+  {\path{doi:10.5281/zenodo.23384809}}.
+
+\end{thebibliography}
 
 \end{document}
