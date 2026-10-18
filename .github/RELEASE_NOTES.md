@@ -2,7 +2,7 @@
 
 We prove the conjecture of Gurvich and Naumova ([arXiv:2508.00946](https://arxiv.org/abs/2508.00946), Conjecture 1) that for every n ≥ 1 the set {1,...,n} can be partitioned into parts of at most three elements whose sums are powers of 3. The partition is given by an explicit recursion.
 
-Version 2.0.0 adds the second author and the journal format for Discrete Mathematics: MSC 2020 codes (Primary 05A18; Secondary 11B75, 68V15), four schematic figures, and the data availability, competing interests and funding statements. The mathematics is that of v1.0.0.
+Version 2.1.0 is the form submitted to Hexagon: the University of Calcutta affiliation of the first author, a footnote on Skolem's partitions of {1,...,3n} into triples {x, y, x+y}, three self-citations, the references inside `main.tex` (the source compiles with `latexmk -pdf` and no BibTeX pass), and the Data and code availability and Ethical declarations sections. The mathematics is that of v1.0.0.
 
 | Step | Content |
 |---|---|

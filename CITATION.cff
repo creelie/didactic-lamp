@@ -29,9 +29,9 @@ identifiers:
     value: 10.5281/zenodo.23316377
     description: Release v1.0.0
 repository-code: "https://github.com/creelie/didactic-lamp"
-version: 2.0.0
+version: 2.1.0
 doi: 10.5281/zenodo.23384809
-date-released: 2026-10-15
+date-released: 2026-10-18
 keywords:
   - set partition
   - powers of three
