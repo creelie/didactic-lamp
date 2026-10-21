@@ -12,8 +12,7 @@
 
 \journal{Discrete Mathematics}
 
-\newcommand{\zenodoID}{10.5281/zenodo.23455972}
-\newcommand{\preprintURL}{https://github.com/creelie/didactic-lamp/blob/main/preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf}
+\newcommand{\releaseURL}{https://github.com/creelie/didactic-lamp/releases/tag/v2.2.0}
 
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -98,7 +97,7 @@ The proof is a recursion on $n$. Let $T=3^t\le n<3T$. For $n=T$, for $2n>3T$, an
 
 \section{Good and balanced sets}\label{sec:prelim}
 
-For integers $a\le b$ let $\iv ab=\{x\in\Z: a\le x\le b\}$, and $\iv ab=\emptyset$ if $a>b$. For $Z\subset\Z$ and $c,s\in\Z$ write $c+sZ=\{c+sz:z\in Z\}$ and $c-Z=\{c-z:z\in Z\}$. A finite set $A\subset\Z$ is \emph{admissible} if $|A|\le3$ and $\sum_{x\in A}x=3^k$ for some $k\ge0$. A finite set $S\subset\Z$ is \emph{good} if it is a disjoint union of admissible sets;\footnote{A partition of $S$ is a cover of $S$ in which every point lies in exactly one set. Covers in which every point lies in at least $k$ of the sets, and the nerve complexes that record how the sets of a cover meet, are studied in~\cite{BB26}.} thus $[n]$ is good if and only if it has a $3$-good partition. A finite set $Z\subset\Z$ is \emph{balanced} if it is a disjoint union of sets each of which is $\{0\}$ or a $3$-element set with sum $0$. Disjoint unions of good sets are good, and disjoint unions of balanced sets are balanced.
+For integers $a\le b$ let $\iv ab=\{x\in\Z: a\le x\le b\}$, and $\iv ab=\emptyset$ if $a>b$. For $Z\subset\Z$ and $c,s\in\Z$ write $c+sZ=\{c+sz:z\in Z\}$ and $c-Z=\{c-z:z\in Z\}$. A finite set $A\subset\Z$ is \emph{admissible} if $|A|\le3$ and $\sum_{x\in A}x=3^k$ for some $k\ge0$. A finite set $S\subset\Z$ is \emph{good} if it is a disjoint union of admissible sets; thus $[n]$ is good if and only if it has a $3$-good partition. A finite set $Z\subset\Z$ is \emph{balanced} if it is a disjoint union of sets each of which is $\{0\}$ or a $3$-element set with sum $0$. Disjoint unions of good sets are good, and disjoint unions of balanced sets are balanced.
 
 \begin{lemma}[{\cite[Lemma~1]{GN}}]\label{lem:interval}
 If $\ell\ge0$ and $\ell\not\equiv2\pmod3$, then $\iv{-\ell}{\ell}$ is balanced.
@@ -132,7 +131,7 @@ Since $Q$ is odd, $x\ne Q-x$, and $X$ is the disjoint union of the pairs $\{x,Q-
 
 \section{Reflection and the involutions \texorpdfstring{$\sigma_N$}{sigma\_N}}\label{sec:tools}
 
-The next lemma uses the reflection $x\mapsto T-x$ of $\iv1{T-1}$, an action of the group of order two that pairs off the points of a symmetric set.\footnote{For an action of a group $G$ on a set, the orbits of $G$ partition the set; here $G$ has order two and the orbits are the pairs $\{x,T-x\}$, all of size two because $T$ is odd. Equivariant classes for actions of hyperbolic groups are constructed in~\cite{Bha22}.}
+The next lemma uses the reflection $x\mapsto T-x$ of $\iv1{T-1}$, an action of the group of order two that pairs off the points of a symmetric set.
 
 \begin{lemma}\label{lem:assembly}
 Let $T=3^t$, $j\ge0$, $D\subseteq\iv1{T-1}$ and $W\subseteq\iv{T+1}{T+j}\cup(T-D)$. Put
@@ -153,7 +152,7 @@ Let $E=\{x\in\iv1{T-1}: x\notin D,\ T-x\notin D\}$. Then $T-E=E$, so $E$ is good
 \end{figure}
 
 \begin{lemma}\label{lem:sigma}
-Let $N\ge1$, $N\equiv1\pmod3$, and $K=2N-2$. There is a fixed-point-free involution\footnote{A fixed-point-free involution is a free action of the group of order two, and its orbits are pairs. On complex surfaces the same notion gives the Enriques surfaces, which are the quotients of K3 surfaces by fixed-point-free involutions; K3 surfaces with involutions and the Enriques and Kummer surfaces obtained from them are studied in~\cite{BN26}.} $\sigma$ of $\iv1K$ with the following properties, where $\Pi=\{z\in\iv1K:z<\sigma(z)\}$.
+Let $N\ge1$, $N\equiv1\pmod3$, and $K=2N-2$. There is a fixed-point-free involution $\sigma$ of $\iv1K$ with the following properties, where $\Pi=\{z\in\iv1K:z<\sigma(z)\}$.
 \begin{enumerate}
 \item[(i)] The sums $z+\sigma(z)$, $z\in\Pi$, are distinct.
 \item[(ii)] The $N$ numbers $2N-2$ and $z+\sigma(z)-(2N+1)$, $z\in\Pi$, are distinct, and the set $\Delta_N$ they form is balanced.
@@ -285,7 +284,7 @@ Independent computations in exact integer arithmetic run the recursion of Sectio
 
 \section*{Data and code availability}
 \begingroup\raggedright
-The \LaTeX{} source of the paper, the Lean~4 formalization of Theorem~\ref{thm:main} and the programs of Section~\ref{sec:lean} are archived at Zenodo under doi:\href{https://doi.org/\zenodoID}{\zenodoID} \cite{archive}; the paper is available at \url{\preprintURL}. Deep Bhattacharjee carried out the computations and the Lean, Julia, C, C\texttt{++}, Python and shell verifications, and the proofs and the text were drafted, with AI assistance (Claude, Anthropic); both authors approved the final version.\par
+The \LaTeX{} source of the paper, the Lean~4 formalization of Theorem~\ref{thm:main} and the programs of Section~\ref{sec:lean} are in release~v2.2.0 of the repository \url{https://github.com/creelie/didactic-lamp} \cite{archive}. Deep Bhattacharjee carried out the computations and the Lean, Julia, C, C\texttt{++}, Python and shell verifications, and the proofs and the text were drafted, with AI assistance (Claude, Anthropic); both authors approved the final version.\par
 \endgroup
 
 \section*{Ethical declarations}
@@ -323,25 +322,9 @@ L.~de~Moura, S.~Ullrich, The {L}ean 4 theorem prover and programming language,
 \newblock \href {https://doi.org/10.1145/3372885.3373824}
   {\path{doi:10.1145/3372885.3373824}}.
 
-\bibitem{BB26}
-D.~Bhattacharjee, U.~Bhattacharya, Iterated nerve complexes for $k$-fold sensor coverage, Preprints.org (2026).
-\newblock \href {https://doi.org/10.20944/preprints202606.1351.v2}
-  {\path{doi:10.20944/preprints202606.1351.v2}}.
-
-\bibitem{Bha22}
-D.~Bhattacharjee, Establishing equivariant class $[O]$ for hyperbolic groups, Asian Res. J. Math. 18~(11) (2022) 362--369.
-\newblock \href {https://doi.org/10.9734/arjom/2022/v18i11615}
-  {\path{doi:10.9734/arjom/2022/v18i11615}}.
-
-\bibitem{BN26}
-D.~Bhattacharjee, P.~Nandi, Enriques and {K}ummer surfaces arising from {K3} involutions, Preprints.org (2026).
-\newblock \href {https://doi.org/10.20944/preprints202602.0098.v1}
-  {\path{doi:10.20944/preprints202602.0098.v1}}.
-
 \bibitem{archive}
-D.~Bhattacharjee, U.~Bhattacharya, Partitioning $\{1,\dots,n\}$ into parts of size at most three whose sums are powers of three: paper, Lean 4 formalization and verification code, Zenodo (2026).
-\newblock \href {https://doi.org/10.5281/zenodo.23455972}
-  {\path{doi:10.5281/zenodo.23455972}}.
+D.~Bhattacharjee, U.~Bhattacharya, Partitioning $\{1,\dots,n\}$ into parts of size at most three whose sums are powers of three: paper, Lean 4 formalization and verification code, release v2.2.0 (2026).
+\newblock \url{\releaseURL}.
 
 \end{thebibliography}
 

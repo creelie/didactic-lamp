@@ -49,3 +49,5 @@ at 10 pages it fits the journal as a short Contribution.
   including references. The references of `paper/main.tex` were checked against
   the arXiv record of arXiv:2508.00946 and the Crossref records of the others.
 - Source: https://www.elsevier.com/about/policies-and-standards/generative-ai-policies-for-journals
+- Fee: none on the subscription route; optional open access carries a charge and is not needed.
+- The journal version is in `paper/paper1/` (PDF) and `paper/paper2/` (LaTeX source zip), the same files as in `dist/`.

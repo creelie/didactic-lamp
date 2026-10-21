@@ -8,7 +8,7 @@ and Ushashi Bhattacharya (Formerly, National Taiwan University, Taipei 106319,
 Taiwan; rai.bhattacharya.in@gmail.com; ORCID 0009-0002-2254-3914).
 
 - Paper: [`preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf`](preprintGurvichNaumovaConjecture/GurvichNaumovaConjecture.pdf)
-- Lean 4 formalization on Zenodo: doi:[10.5281/zenodo.23455972](https://doi.org/10.5281/zenodo.23455972) (release v2.1.0; all versions: doi:[10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376))
+- Release cited by the paper: [v2.2.0](https://github.com/creelie/didactic-lamp/releases/tag/v2.2.0); journal version in [`paper/paper1/`](paper/paper1/) (PDF) and [`paper/paper2/`](paper/paper2/) (LaTeX source zip)
 - Master zip: [`MasterGurvichNaumovaConjecture_masterzipfinal2.zip`](https://github.com/creelie/didactic-lamp/raw/main/MasterGurvichNaumovaConjecture_masterzipfinal2.zip)
 - Target journal: Discrete Mathematics (`journal/JOURNAL.md`)
 - MSC 2020: Primary 05A18; Secondary 11B75, 68V15
@@ -93,10 +93,10 @@ latexmk, zip and tar; `figures/make_figures.sh` redraws the figures).
 
 ## Archive
 
-| Release | Zenodo DOI |
+| Release | Link |
 |---|---|
-| v2.1.0 (Hexagon submission) | [10.5281/zenodo.23455972](https://doi.org/10.5281/zenodo.23455972) |
-| v2.0.0 (two authors, journal format) | [10.5281/zenodo.23384809](https://doi.org/10.5281/zenodo.23384809) |
-| v1.0.1 | [10.5281/zenodo.23316427](https://doi.org/10.5281/zenodo.23316427) |
-| v1.0.0 | [10.5281/zenodo.23316377](https://doi.org/10.5281/zenodo.23316377) |
-| all versions | [10.5281/zenodo.23316376](https://doi.org/10.5281/zenodo.23316376) |
+| v2.2.0 (journal version; cited by the paper) | [https://github.com/creelie/didactic-lamp/releases/tag/v2.2.0](https://github.com/creelie/didactic-lamp/releases/tag/v2.2.0) |
+| v2.1.0 | [https://github.com/creelie/didactic-lamp/releases/tag/v2.1.0](https://github.com/creelie/didactic-lamp/releases/tag/v2.1.0) |
+| v2.0.0 | [https://github.com/creelie/didactic-lamp/releases/tag/v2.0.0](https://github.com/creelie/didactic-lamp/releases/tag/v2.0.0) |
+| v1.0.1 | [https://github.com/creelie/didactic-lamp/releases/tag/v1.0.1](https://github.com/creelie/didactic-lamp/releases/tag/v1.0.1) |
+| v1.0.0 | [https://github.com/creelie/didactic-lamp/releases/tag/v1.0.0](https://github.com/creelie/didactic-lamp/releases/tag/v1.0.0) |

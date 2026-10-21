@@ -2,8 +2,6 @@
 
 We prove the conjecture of Gurvich and Naumova ([arXiv:2508.00946](https://arxiv.org/abs/2508.00946), Conjecture 1) that for every n ≥ 1 the set {1,...,n} can be partitioned into parts of at most three elements whose sums are powers of 3. The partition is given by an explicit recursion.
 
-Version 2.1.0 is the form submitted to Hexagon: the University of Calcutta affiliation of the first author, a footnote on Skolem's partitions of {1,...,3n} into triples {x, y, x+y}, three self-citations, the references inside `main.tex` (the source compiles with `latexmk -pdf` and no BibTeX pass), and the Data and code availability and Ethical declarations sections. The mathematics is that of v1.0.0.
-
 | Step | Content |
 |---|---|
 | Lemmas 2.1–2.3 | The intervals [−ℓ, ℓ], ℓ ≢ 2 (mod 3), split into {0} and triples with sum 0; images 3^q + sZ; symmetric sets split into pairs with sum 3^q |
@@ -13,6 +11,8 @@ Version 2.1.0 is the form submitted to Hexagon: the University of Calcutta affil
 | Theorem 1.2 | Every [n] has a 3-good partition |
 
 The proof is formalized in Lean 4 with Mathlib: `GN.gurvich_naumova` depends only on the axioms propext, Classical.choice and Quot.sound. The release workflow builds the Lean project and runs the independent checks in C (every n ≤ 30000), Julia (n ≤ 20000), C++ (n ≤ 10000) and Python (n ≤ 3000), with further values of n up to 64570081, before publishing.
+
+Version 2.2.0 is the journal version for Discrete Mathematics: it cites this release instead of a DOI and leaves out the footnotes unrelated to the proof. The paper is also in `paper/paper1/` and its LaTeX source zip in `paper/paper2/`.
 
 Files:
 - `GurvichNaumovaConjecture_final2.pdf`: the paper
